@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import taskRoutes from "./routes/taskRoutes";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 
@@ -12,5 +13,7 @@ app.get("/health", (_req, res) => {
 });
 
 app.use("/api/v1/tasks", taskRoutes);
+
+app.use(errorHandler);
 
 export default app;
