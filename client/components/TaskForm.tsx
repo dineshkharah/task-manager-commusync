@@ -26,9 +26,9 @@ const TaskForm = ({ onAdd }: TaskFormProps) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="add a task"
-        className="flex-1 border border-gray-400 px-2 py-1"
+        className="flex-1 rounded-md border border-gray-400 px-2 py-1"
       />
-      <button type="submit" className="border border-blue-700 bg-blue-600 px-3 py-1 text-white">
+      <button type="submit" className="rounded-md border border-blue-700 bg-blue-600 px-3 py-1 text-white">
         Add
       </button>
     </form>

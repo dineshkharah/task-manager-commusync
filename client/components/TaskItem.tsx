@@ -19,7 +19,7 @@ const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
       </span>
       <button
         onClick={() => onDelete(task._id)}
-        className="border border-red-700 bg-red-600 px-2 py-1 text-sm text-white"
+        className="rounded-md border border-red-700 bg-red-600 px-2 py-1 text-sm text-white"
       >
         Delete
       </button>
