@@ -7,24 +7,44 @@ import TaskList from "@/components/TaskList";
 
 const Home = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getTasks().then(setTasks);
+    getTasks()
+      .then(setTasks)
+      .catch(() => setError("Could not load tasks. Is the server running?"))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleAdd = async (title: string) => {
-    const newTask = await createTask(title);
-    setTasks((prev) => [newTask, ...prev]);
+    try {
+      const newTask = await createTask(title);
+      setTasks((prev) => [newTask, ...prev]);
+      setError("");
+    } catch {
+      setError("Could not add the task.");
+    }
   };
 
   const handleToggle = async (id: string) => {
-    const updated = await toggleTask(id);
-    setTasks((prev) => prev.map((task) => (task._id === id ? updated : task)));
+    try {
+      const updated = await toggleTask(id);
+      setTasks((prev) => prev.map((task) => (task._id === id ? updated : task)));
+      setError("");
+    } catch {
+      setError("Could not update the task.");
+    }
   };
 
   const handleDelete = async (id: string) => {
-    await deleteTask(id);
-    setTasks((prev) => prev.filter((task) => task._id !== id));
+    try {
+      await deleteTask(id);
+      setTasks((prev) => prev.filter((task) => task._id !== id));
+      setError("");
+    } catch {
+      setError("Could not delete the task.");
+    }
   };
 
   return (
@@ -33,8 +53,13 @@ const Home = () => {
       <div className="mt-4">
         <TaskForm onAdd={handleAdd} />
       </div>
+      {error && <p className="mt-4 text-red-500">{error}</p>}
       <div className="mt-6">
-        <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} />
+        {loading ? (
+          <p className="text-gray-500">Loading...</p>
+        ) : (
+          <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} />
+        )}
       </div>
     </main>
   );
