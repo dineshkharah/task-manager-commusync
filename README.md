@@ -4,8 +4,8 @@ A small task manager that does four things: add a task, view all tasks, mark a t
 
 ## Live demo
 
-- Client (Vercel):
-- Server (Render):
+- Client (Vercel): https://task-manager-commusync.vercel.app
+- Server (Render): https://task-manager-commusync.onrender.com
 
 The API base path is `/api/v1`, so the health check is at `API_URL/health` and the tasks live at `API_URL/api/v1/tasks`.
 
